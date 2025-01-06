@@ -19,8 +19,8 @@ Tested on the following system:
 	Windows 11  
 	128 Gb RAM  
 	AMD 5800X processor  
-	Python 3.8.12.final.0; pandas 1.4.1; numpy 1.20.3; biopython 1.79;  
-	plotly 5.6.0; pyliftover 0.4; regex 2021.8.3; statsmodels 0.12.2  
+	Python 3.10.14; pandas 2.2.2; numpy 1.26.4; biopython 1.83;  
+	plotly 5.22.0; liftover 1.2.2; scipy 1.13.1  
 
 Installation guide:
 
