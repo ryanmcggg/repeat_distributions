@@ -23,12 +23,10 @@ Tested on the following system: <br>
 	plotly 5.22.0; liftover 1.2.2; scipy 1.13.1   <br>
  <br>
 Installation guide: <br>
- <br>
 Follow above instructions to install Python and additional dependencies. <br>
 Typical install time: ~15 minutes <br>
  <br>
 Instructions for use: <br>
- <br>
 Open Jupyter Notebooks in listed order. <br>
 Further instructions are included within the notebook, including instructions for downloading required public datasets and creating directories. <br>
 Run each notebook cell in order. <br>
