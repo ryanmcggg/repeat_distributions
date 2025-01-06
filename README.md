@@ -4,8 +4,7 @@
 
 System Requirements: <br>
 
-Miniconda installation of Python 3.10.14	64bit    <br>
-			- https://docs.anaconda.com/miniconda/ <br>
+Miniconda installation of Python 3.10.14	64bit    - https://docs.anaconda.com/miniconda/ <br>
 Additional Python libraries: <br>
 Biopython SeqIO		- https://biopython.org/wiki/SeqIO <br>
 FastaPy			- https://github.com/aziele/fastapy <br>
