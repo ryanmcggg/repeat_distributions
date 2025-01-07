@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -c 1                     # request one core
-#SBATCH -t 0-36:00                # 3:00 hours run time
-#SBATCH -p medium                 # use short partition
-#SBATCH --mem 1000M               # use 100Mb
-#SBATCH --array=1-808           # Run array for indexes 1-3108
+#SBATCH -t 0-36:00                # 36:00 hours run time
+#SBATCH -p medium                 # use medium partition
+#SBATCH --mem 1000M               # use 1000Mb
+#SBATCH --array=1-3108           # Run array for indexes 1-3108
 #SBATCH -o slurm_output/slurm-%A_%a.out
 
 source activate repeat_dist_env
@@ -12,9 +12,7 @@ source activate repeat_dist_env
 
 
 # Specify the path to the config file
-#config=grid_A_L9_subonlystart_long/jobs_sp2_toptri.csv
-#config=grid_A_L9_subonlystart_long/jobs_sp2_diag.csv
-config=grid_A_L9_subonlystart_long/jobs_sp2_12.csv
+config=grid_A_L9_subonlystart_long/jobs_sp2.csv
 
 
 # Extract the sample name for the current $SLURM_ARRAY_TASK_ID
