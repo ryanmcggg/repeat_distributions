@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH -c 1                     # request one core
-#SBATCH -t 20-00:00                # 3:00 hours run time
-#SBATCH -p long                 # use short partition
-#SBATCH --mem 1000M               # use 100Mb
-#SBATCH --array=1-4249           # Run array for indexes 1-3108
+#SBATCH -t 20-00:00                # 20 days run time
+#SBATCH -p long                 # use long partition
+#SBATCH --mem 1000M               # use 1000Mb
+#SBATCH --array=1-4249           # Run array for indexes 1-4249
 #SBATCH -o slurm_output/slurm-%A_%a.out
 
 source activate repeat_dist_env
