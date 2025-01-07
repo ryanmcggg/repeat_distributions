@@ -1,6 +1,12 @@
-# McGinty, Balick, Lyskova, Mirkin and Sunyaev – Supplementary Code - README
+# Supplementary Code - README
 
-## For Computational model:
+# Inherent instability of simple DNA repeats shapes an evolutionarily stable distribution of repeat lengths
+
+## Ryan J. McGinty, Daniel J. Balick, Sergei M. Mirkin & Shamil Sunyaev
+
+#### For questions, contact ryan_mcginty@hms.harvard.edu
+
+## For Bioninformatic analysis and computational model:
 
 System Requirements: <br>
 
