@@ -37,7 +37,7 @@ Further instructions are included within the notebook, including instructions fo
 Run each notebook cell in order. <br>
  <br>
 Scripts provided for running the full grid of computational models on a Slurm-based cluster. <br>
-Run time will vary based on cluster performance. <br>
+Run time will vary based on cluster performance (likely hours to days). <br>
  <br>
 Expected output: <br>
 All plots (.pdf images) included in the manuscript. <br>
@@ -45,7 +45,7 @@ All plots (.pdf images) included in the manuscript. <br>
 Various temporary or intermediate files and databases in compressed .csv or .pickle format. <br>
 Note: temporary files can be used to resume running from various points. <br>
 
-Instructions to run a demo of the computational model are contained within notebook 3.
-Approximate runtime on a "normal" desktop computer is several minutes.
-This demo skips the bioinformatics portion contained in notebooks 1-2 (which takes several days to run on a "normal" desktop computer).
-Expected output is a table of expected repeat counts with one column per time step.
+Instructions to run a demo of the computational model are contained within notebook 3. <br>
+Approximate runtime on a "normal" desktop computer is several minutes. <br>
+Expected output is a table of expected repeat counts with one column per time step. <br>
+This demo skips the bioinformatics portion contained in notebooks 1-2, which takes several days to run on a "normal" desktop computer. Bioinformatics results are available in Supplemental files SF1 and SF2.
