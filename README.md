@@ -6,7 +6,7 @@
 
 #### For questions, contact ryan_mcginty@hms.harvard.edu
 
-## For Bioninformatic analysis and computational model:
+## For Bioinformatic analysis and computational model:
 
 System Requirements: <br>
 
@@ -41,6 +41,6 @@ Run time will vary based on cluster performance. <br>
  <br>
 Expected output: <br>
 All plots (.pdf images) included in the manuscript. <br>
-(see: https://www.biorxiv.org/content/[link here]) <br>
+(see: https://www.biorxiv.org/content/10.1101/2025.01.09.631797v1) <br>
 Various temporary or intermediate files and databases in compressed .csv or .pickle format. <br>
 Note: temporary files can be used to resume running from various points. <br>
