@@ -44,3 +44,8 @@ All plots (.pdf images) included in the manuscript. <br>
 (see: https://www.biorxiv.org/content/10.1101/2025.01.09.631797v1) <br>
 Various temporary or intermediate files and databases in compressed .csv or .pickle format. <br>
 Note: temporary files can be used to resume running from various points. <br>
+
+Instructions to run a demo of the computational model are contained within notebook 3.
+Approximate runtime on a "normal" desktop computer is several minutes.
+This demo skips the bioinformatics portion contained in notebooks 1-2 (which takes several days to run on a "normal" desktop computer).
+Expected output is a table of expected repeat counts with one column per time step.
