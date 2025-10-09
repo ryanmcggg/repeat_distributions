@@ -17,9 +17,7 @@ def gather_files(folder, run_name, write='out', final_only = False, check_comple
     parameter_info = parameter_info[['exp_i', 'con_i', 'exp_p', 'con_p']]
     parameter_info['exp_i'] = parameter_info['exp_i'].astype(int); parameter_info['con_i'] = parameter_info['con_i'].astype(int)
     parameter_info = parameter_info.sort_index().drop_duplicates(keep = 'first') # if any duplicates exist, keep one with lowest speedup
-    #parameters_inference_cols = parameter_info.groupby(['exp_i', 'con_i', 'exp_p', 'con_p'])['con_p'].count().index
     parameters_inference_cols = pd.Series([(a,b,c,d) for a,b,c,d in zip(parameter_info['exp_i'], parameter_info['con_i'], parameter_info['exp_p'], parameter_info['con_p'])], index = parameter_info.index)
-#    parameter_info.to_pickle('grid_present_' + str(run_name) + '.pickle')
 
     if check_complete is not None:
         # check for missing files
