@@ -1,29 +1,35 @@
 #!/bin/bash
-#SBATCH -c 20                     # request 20 cores (max for short)
-#SBATCH -t 0-09:00                  # 6 hours run time (12hr max for short)
-#SBATCH -p short                  # use short partition
-#SBATCH --mem 800M               # use 2000Mb
-#SBATCH --array=0-134             # Run array for indexes 1-999 (Slurm doesn't accept more than 10000 jobs per batch)
+
+# Note: below script is used to run computational model data points in parallel, and is designed to run on a Slurm-based cluster
+# This is an example only. Modifications may be required depending on your cluster specifications and conda installation.
+
+#SBATCH -c 20                    # request 20 cores
+#SBATCH -t 0-12:00               # 12 hours run time
+#SBATCH -p short                 # use short partition
+#SBATCH --mem 800M               # RAM usage
+#SBATCH --array=0-134            # Run array for indexes 0-n
 #SBATCH -o slurm_output/slurm-%A_%a.out
 
-module load conda/miniforge3/24.11.3-0 || module load conda/miniforge3 || sleep 5 && module --ignore-cache load conda/miniforge3
-conda activate /home/rjm44/.conda/envs/rep_env_3
+module load conda/miniforge3/24.11.3-0
+conda activate /path/to/.conda/envs/your_env
 
 # Run with '${mult}' etc. as the variable names
-#python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='uniform' --boundary_count=200000 --speedup=5 --rounds=1 --A_bins=200 --B_bins=200 --interp --dir=grid_4param_interp_uniform/
 
-#python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --jobfile='fullgrid_jobs_prospeedup.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_4param_v6/
+# Jobs run with progressive time rescaling
+
+# use array = 0-1002
+python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --jobfile='fullgrid_jobs_prospeedup.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_4param/
 
 # use array=0-200
 #python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --jobfile='3Mgrid_jobs_prospeedup.pickle' --speedup=3 --A_bins=200 --B_bins=200 --interp  --dir=grid_3M_interp/
 
 # use array = 0-999
-#python3 computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --rates_function='log' --jobfile='grid_group_jobs_log.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_4param_log_v4/
-python3 computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --rates_function='log' --jobfile='jobs_incomplete_split4.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=log_annex/
+python3 computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --rates_function='log' --jobfile='grid_group_jobs_log.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_4param_log/
 
-# use array=0-14
-#python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --jobfile='grid_group_jobs_top95c2.pickle' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_top95c_pro_stoch/10/ --stochastics=10
+python3 computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --jobfile='grid_group_jobs_xaxis.pickle' --starting_counts='subonly' --rates_function='powerlaw_lambda' --speedup=3 --A_bins=200 --B_bins=200 --dir=grid_4param_xaxis/
 
 
-# use array=0-200
-#python computational_model_script_4params.py --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --jobfile='3Mgrid_jobs_prospeedup.pickle' --speedup=3 --A_bins=200 --B_bins=200 --stochastics=1  --dir=grid_3M_stoch/
+# Fast-running jobs for constant time rescaling
+# use array=0-47
+python computational_model_script_4params.py --jobfile='3Mgrid_jobs_constantspeedup_short.pickle' --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='subonly' --speedup=1 --ceiling=0.1 --rounds=9 --A_bins=200 --B_bins=200  --dir=grid_sparse_constantspeedup/ --constantspeedup
+python computational_model_script_4params.py --jobfile='3Mgrid_jobs_constantspeedup_short.pickle' --jobgroup=$SLURM_ARRAY_TASK_ID  --starting_counts='uniform' --speedup=1 --ceiling=0.1  --rounds=9 --A_bins=200 --B_bins=200  --dir=grid_sparse_constantspeedup_uniform/ --constantspeedup
