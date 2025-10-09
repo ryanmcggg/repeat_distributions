@@ -83,8 +83,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         # total number of A>B fission events
         A_mut_out_fission = np.insert((-denovo_sub['Afission'] * A_count_input[2:] * A_length_array_bases[:A_bins]), 0, [0, 0]) # used to subtract from A_count, starting from L=3 (with 0 for L=1,2)
         # each fission creates 2 As. add these to A
-        #A_mut_in_fission =  np.array([np.sum(((2/A_length_array[:A_bins]) * -A_mut_out_fission[2:A_bins+2])[L-1:]) for L in A_length_array[:A_bins]]) ### use length_array_bases???
-        # new faster fission!
         A_mut_in_fission = ((2/A_length_array[:A_bins]) * -A_mut_out_fission[2:A_bins+2])[::-1].cumsum()[::-1]
  
         # B>A which adds to the A count locally (which must come from B_L>1)
@@ -111,8 +109,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         # total number of B>A fission events
         B_mut_out_fission = np.insert((-denovo_sub['A01'] * B_count_input[2:] * B_length_array_bases[:B_bins]), 0, [0, 0]) # used to subtract from B_count, starting from L=3 (with 0 for L=1,2)
         # each fission creates 2 Bs. add these to B
-        #B_mut_in_fission =  np.array([np.sum(((2/B_length_array[:B_bins]) * -B_mut_out_fission[2:B_bins+2])[L-1:]) for L in B_length_array[:B_bins]]) ### use length_array_bases???
-        # new faster fission!
         B_mut_in_fission = ((2/B_length_array[:B_bins]) * -B_mut_out_fission[2:B_bins+2])[::-1].cumsum()[::-1]
 
         # A>B which adds to the B count locally (which must come from A_L>1)
@@ -121,7 +117,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         B_mut_out_local_A_B = -denovo_sub['Acontraction'] * A_flank_base_portion * total_A_bases * B_len_freq
         # A>B creating B_L=1 from A_L>2
         A_B_into_L1 = total_A_bases * A_nonflank_base_portion * denovo_sub['Afission']
-#        A_B_into_L1 = -A_mut_out_fission.sum()
         B_mut_in_local_A_B = np.insert(-B_mut_out_local_A_B, 0, A_B_into_L1)
         
         # fusion process for B
@@ -143,7 +138,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
             total_A_change_out[A_bins-1] += A_mut_out_local_A_B[A_bins:].sum() + A_mut_out_local_B_A[A_bins:].sum() + A_mut_out_fission[A_bins:].sum() + A_mut_out_fusion_A_B[A_bins:].sum()
             total_B_change_out[B_bins-1] += B_mut_out_local_B_A[B_bins:].sum() + B_mut_out_local_A_B[B_bins:].sum() + B_mut_out_fission[B_bins:].sum() + B_mut_out_fusion_B_A[B_bins:].sum()
            
-            
     if mutonly == False:
         # A expansions in and out
         A_exp_out = A_count_input[:A_bins] * -exp_rate_A_AA[:A_bins]
@@ -163,10 +157,7 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         # A fission events from insertions
         A_nonexp_out_fission = -A_count_input * nonexp_rate_A_AB # used to calculate fission_in, starting with L=2 going to 2x L=1
         # each fission creates 2 As. add these to A
-        #A_nonexp_in_fission =  np.array([np.sum(((2/A_length_array[:A_bins]) * -A_nonexp_out_fission[1:A_bins+1])[L-1:]) for L in A_length_array[:A_bins]])
-        # new faster fission!
         A_nonexp_in_fission = ((2/A_length_array[:A_bins]) * -A_nonexp_out_fission[1:A_bins+1])[::-1].cumsum()[::-1]
-
 
         # B expansions in and out
         B_exp_out = B_count_input[:B_bins] * -B_indel_rates[2] * B_length_array[:B_bins] # B>BB rates are flat, per base
@@ -186,11 +177,8 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         # B fission events from insertions
         B_nonexp_out_fission = -B_count_input * B_indel_rates[0] * B_length_array # used to calculate fission_in, starting with L=2 going to 2x L=1
         # each fission creates 2 Bs. add these to B
-        #B_nonexp_in_fission =  np.array([np.sum(((2/B_length_array[:B_bins]) * -B_nonexp_out_fission[1:B_bins+1])[L-1:]) for L in B_length_array[:B_bins]])
-        # new faster fission!
         B_nonexp_in_fission = ((2/B_length_array[:B_bins]) * -B_nonexp_out_fission[1:B_bins+1])[::-1].cumsum()[::-1]
 
-    
        # update counts for next round (with absorbing boundary)
         total_A_change_in += A_exp_in[:A_bins] + A_con_in[:A_bins] + A_mut_in_fusion_Bdel[:A_bins] + A_nonexp_in_fission[:A_bins]
         total_B_change_in += B_exp_in[:B_bins] + B_con_in[:B_bins] + B_mut_in_fusion_Adel[:B_bins] + B_nonexp_in_fission[:B_bins]
@@ -204,7 +192,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
             total_A_change_out[A_bins-1] += A_exp_out[A_bins:].sum() + A_con_out[A_bins:].sum() + A_mut_out_fusion_Bdel[A_bins:].sum() + A_nonexp_out_fission[A_bins:].sum()
             total_B_change_out[B_bins-1] += B_exp_out[B_bins:].sum() + B_con_out[B_bins:].sum() + B_mut_out_fusion_Adel[B_bins:].sum() + B_nonexp_out_fission[B_bins:].sum()
 
-    
     # flag to stop the simulation if more repeats are removed from a bin than exist in that bin (excluding the last 10 noisy bins)
     flag = ((np.abs(total_A_change_out[:A_bins-10]) * speedup_multiplier > A_count_output[:A_bins-10]).sum()) > 0
 
@@ -244,7 +231,6 @@ def mut_evolve_dist_AB(A_count_input, B_count_input, starting_conditions, boot =
         return A_count_output, B_count_output, flag, boundary_flag
 
 
-
 def pin_power_law(power, pin_rate, pin_len=9, start_len=1, end_len=200):
     denom = (pin_len**power) / pin_rate
     return pd.Series([i**power for i in range(start_len, end_len+1)], index = list(range(start_len,end_len+1))) / denom
@@ -279,10 +265,9 @@ def intercept_then_powerlaw(exp_power, con_power, exp_int, con_int, pin_len = 9,
     else:
         interpname = ''
 
-
-
     name = '_interceptPL_tE' + str(exp_power) + '_tC' + str(con_power) +'_iE' + str(exp_int) + '_iC' + str(con_int) + nonexpname + interpname + bootname
     return name, exp, con, nonexp
+
 
 #### alternate rate functional forms
 def power_law_rate_at_L(power, L, rate = 1e-8, bins = 200):
@@ -398,6 +383,7 @@ def setup_evolve(exp_power=0, con_power=0, exp_int=0, con_int=0, boot = None, st
         else:
             name = name + '_stochastics_' + str(stochastics)
         return A_count_input, B_count_input, None, None, None, None, name
+
 
 def run_simulation_constantspeedup(exp_int, con_int, exp_power, con_power, min_speedup = 1, rounds = 9, ceiling = 0.1, interp = False, nonexp_factor = 0.01, A_bins = 200, B_bins = 200, input_nuc = 'A', mutonly = False, stochastics = None, boot = None, boundary_count = 1000, overwrite = False, starting_counts = 'random', reflective = True, sim_dir = 'simulations/testing/', rates_function = 'powerlaw', first_bin = 0, write = True, startfrom = None, recnum = 11, pin_len = 9):
     starting_conditions = setup_evolve(exp_power, con_power, exp_int, con_int, nonexp_factor = nonexp_factor, A_bins = A_bins, B_bins = B_bins, input_nuc = input_nuc, mutonly = mutonly, starting_counts = starting_counts, boot = boot, ceiling = None, interp = interp, rates_function = rates_function, pin_len = pin_len)
