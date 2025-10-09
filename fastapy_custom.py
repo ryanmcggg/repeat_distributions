@@ -1,4 +1,4 @@
-"""A lightweight Python module to read and write FASTA sequence records"""
+"""A lightweight Python module to read and write FASTA sequence records (modified from https://github.com/aziele/fastapy/)"""
 
 import bz2
 import gzip
