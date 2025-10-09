@@ -10,22 +10,21 @@
 
 System Requirements: <br>
 
-Miniconda installation of Python 3.10.14	64bit    - https://docs.anaconda.com/miniconda/ <br>
+Miniforge installation of Python 3.12.8	64bit    (https://github.com/conda-forge/miniforge) <br>
 Additional Python libraries: <br>
-Biopython SeqIO		- https://biopython.org/wiki/SeqIO <br>
-FastaPy			- https://github.com/aziele/fastapy <br>
+FastaPy			- https://github.com/aziele/fastapy (using custom modified version, script included)<br>
 Plotly			- https://plotly.com/python/getting-started/ <br>
 Liftover		- https://pypi.org/project/liftover/ <br>
 Pandas			- https://pandas.pydata.org/ <br>
 Numpy			- https://numpy.org/ <br>
-Scipy.stats		- https://docs.scipy.org/doc/scipy/reference/stats.html <br>
+Scipy   		- https://docs.scipy.org/ <br>
    <br>
 Tested on the following system: <br>
 	Windows 11   <br>
 	128 Gb RAM   <br>
 	AMD 5800X processor   <br>
-	Python 3.10.14; pandas 2.2.2; numpy 1.26.4; biopython 1.83;   <br>
-	plotly 5.22.0; liftover 1.2.2; scipy 1.13.1   <br>
+	Python 3.12.8; pandas 2.2.3; numpy 2.2.1;   <br>
+	plotly 5.24.1; liftover 1.3.2; scipy 1.15.1   <br>
  <br>
 Installation guide: <br>
 Follow above instructions to install Python and additional dependencies. <br>
