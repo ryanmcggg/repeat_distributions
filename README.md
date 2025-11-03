@@ -23,7 +23,7 @@ Tested on the following system: <br>
 	Windows 11   <br>
 	128 Gb RAM   <br>
 	AMD 5800X processor   <br>
-	Python 3.12.8; pandas 2.2.3; numpy 2.2.1; plotly 5.24.1; liftover 1.3.2; scipy 1.15.1   <br>
+	Python 3.12.8; pandas 2.2.3; numpy 2.2.1; plotly 5.24.1; liftover 1.3.2; scipy 1.15.1, regex 2024.11.6<br>
  <br>
 Installation guide: <br>
 Follow above instructions to install Python and additional dependencies. <br>
