@@ -18,6 +18,7 @@ Liftover		- https://pypi.org/project/liftover/ <br>
 Pandas			- https://pandas.pydata.org/ <br>
 Numpy			- https://numpy.org/ <br>
 Scipy   		- https://docs.scipy.org/ <br>
+Regex			- https://pypi.org/project/regex/ <br>
    <br>
 Tested on the following system: <br>
 	Windows 11   <br>
